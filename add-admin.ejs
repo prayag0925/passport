@@ -1,0 +1,91 @@
+<%- include('partials/header') %>
+  <%- include('partials/sidebar', { activePage: 'add-admin' }) %>
+
+
+    <% if (typeof errors !=='undefined' && errors.length> 0) { %>
+      <% errors.forEach(function(err){ %>
+        <div class="alert alert-danger mb-3">
+          <i class="fa fa-circle-exclamation me-2"></i>
+          <%= err.msg %>
+        </div>
+        <% }) %>
+          <% } %>
+            <% if (success_msg && success_msg.length> 0) { %>
+              <div class="alert alert-success mb-3">
+                <i class="fa fa-circle-check me-2"></i>
+                <%= success_msg %>
+              </div>
+              <% } %>
+
+                <div class="page-header">
+                  <h1 class="page-title">Add New Admin</h1>
+                  <p class="page-subtitle">Fill in the details to register a new administrator</p>
+                </div>
+
+                <div class="edu-card" style="max-width:720px;">
+                  <div class="edu-card-header">
+                    <div>
+                      <p class="edu-card-title">Admin Details</p>
+                      <p class="edu-card-subtitle">Fields marked * are required</p>
+                    </div>
+                    <a href="/view-admin" class="btn-secondary" style="font-size:0.82rem; padding:8px 14px;">
+                      <i class="fa fa-arrow-left"></i> Back to List
+                    </a>
+                  </div>
+                  <div class="edu-card-body">
+                    <form action="/add-admin" method="POST" enctype="multipart/form-data">
+
+                      <div class="form-section">
+                        <div class="form-section-title">Personal Information</div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label">Full Name *</label>
+                              <input type="text" class="form-control" name="name" placeholder="Enter full name"
+                                required>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label">Email Address *</label>
+                              <input type="email" class="form-control" name="email" placeholder="admin@example.com"
+                                required>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-section">
+                        <div class="form-section-title">Account Security</div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label">Password * <span style="color:#94a3b8; font-size:0.75rem;">(min
+                                  6 chars)</span></label>
+                              <input type="password" class="form-control" name="password"
+                                placeholder="Choose a strong password" required>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label">Profile Image <span
+                                  style="color:#94a3b8; font-size:0.75rem;">(optional)</span></label>
+                              <input type="file" class="form-control" name="image" accept="image/*">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div style="display:flex; gap:12px; margin-top:8px;">
+                        <button type="submit" class="btn-save">
+                          <i class="fa fa-user-plus"></i> Add Admin
+                        </button>
+                        <a href="/view-admin" class="btn-secondary">
+                          <i class="fa fa-xmark"></i> Cancel
+                        </a>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+                <%- include('partials/footer') %>

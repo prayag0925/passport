@@ -1,0 +1,23 @@
+# ============================================================
+# FILE: .gitignore
+# PURPOSE: Tells Git which files to NOT upload to GitHub.
+#          Keeps sensitive data and large folders private.
+# ============================================================
+
+# Environment variables (contains passwords and secrets!)
+.env
+
+# Node modules folder (too large, can be reinstalled with npm install)
+node_modules/
+
+# Uploaded images by users
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Log files
+npm-debug.log*
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db

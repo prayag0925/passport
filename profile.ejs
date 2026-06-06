@@ -1,0 +1,100 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar', { activePage: 'profile' }) %>
+
+<!-- Flash Messages -->
+<% if (success_msg && success_msg.length > 0) { %>
+  <div class="alert alert-success mb-3">
+    <i class="fa fa-circle-check me-2"></i><%= success_msg %>
+  </div>
+<% } %>
+<% if (error_msg && error_msg.length > 0) { %>
+  <div class="alert alert-danger mb-3">
+    <i class="fa fa-circle-exclamation me-2"></i><%= error_msg %>
+  </div>
+<% } %>
+
+<div class="page-header">
+  <h1 class="page-title">My Profile</h1>
+  <p class="page-subtitle">Your admin account information</p>
+</div>
+
+<div class="row">
+  <!-- Left: Avatar & quick info -->
+  <div class="col-md-4">
+    <div class="edu-card" style="text-align:center;">
+      <div class="edu-card-body">
+        <div class="profile-avatar-wrap" style="margin:0 auto 20px; display:inline-block;">
+          <% if (admin && admin.image && admin.image !== 'default-avatar.png') { %>
+            <img src="/uploads/<%= admin.image %>" class="profile-avatar" alt="Profile">
+          <% } else { %>
+            <div style="width:120px;height:120px;border-radius:24px;background:linear-gradient(135deg,#0f766e,#14b8a6);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:3rem;margin:0 auto;border:3px solid #14b8a6;">
+              <%= admin ? admin.name.charAt(0).toUpperCase() : 'A' %>
+            </div>
+          <% } %>
+          <div class="profile-badge"></div>
+        </div>
+
+        <h3 style="font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:700;color:#1e293b;margin:0 0 4px;">
+          <%= admin ? admin.name : 'Admin' %>
+        </h3>
+        <p style="font-size:0.85rem;color:#64748b;margin:0 0 16px;">
+          <%= admin ? admin.email : '' %>
+        </p>
+        <span class="badge-active" style="font-size:0.8rem;">● Active Account</span>
+
+        <div style="margin-top:24px; padding-top:20px; border-top:1px solid #e2e8f0;">
+          <a href="/edit-admin/<%= admin ? admin._id : '' %>" class="btn-save" style="display:inline-flex; width:100%; justify-content:center;">
+            <i class="fa fa-pen-to-square"></i> Edit Profile
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Detailed info -->
+  <div class="col-md-8">
+    <div class="edu-card">
+      <div class="edu-card-header">
+        <div>
+          <p class="edu-card-title">Account Details</p>
+          <p class="edu-card-subtitle">Your profile information</p>
+        </div>
+      </div>
+      <div class="edu-card-body">
+        <div class="info-row">
+          <div class="info-label"><i class="fa fa-user me-2" style="color:#0f766e;"></i>Full Name</div>
+          <div class="info-value"><%= admin ? admin.name : 'N/A' %></div>
+        </div>
+        <div class="info-row">
+          <div class="info-label"><i class="fa fa-envelope me-2" style="color:#0f766e;"></i>Email</div>
+          <div class="info-value"><%= admin ? admin.email : 'N/A' %></div>
+        </div>
+        <div class="info-row">
+          <div class="info-label"><i class="fa fa-shield me-2" style="color:#0f766e;"></i>Role</div>
+          <div class="info-value">
+            <span class="badge-info">Administrator</span>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-label"><i class="fa fa-calendar me-2" style="color:#0f766e;"></i>Joined</div>
+          <div class="info-value"><%= admin && admin.createdAt ? admin.createdAt.toDateString() : 'N/A' %></div>
+        </div>
+        <div class="info-row">
+          <div class="info-label"><i class="fa fa-circle-dot me-2" style="color:#0f766e;"></i>Status</div>
+          <div class="info-value"><span class="badge-active">Active</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:12px;">
+      <a href="/edit-admin/<%= admin ? admin._id : '' %>" class="btn-save">
+        <i class="fa fa-pen-to-square"></i> Edit Profile
+      </a>
+      <a href="/dashboard" class="btn-secondary">
+        <i class="fa fa-arrow-left"></i> Back to Dashboard
+      </a>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,99 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar', { activePage: 'edit-admin' }) %>
+
+<!-- Flash Messages -->
+<% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+  <% errors.forEach(function(err){ %>
+    <div class="alert alert-danger mb-3">
+      <i class="fa fa-circle-exclamation me-2"></i><%= err.msg %>
+    </div>
+  <% }) %>
+<% } %>
+<% if (error_msg && error_msg.length > 0) { %>
+  <div class="alert alert-danger mb-3">
+    <i class="fa fa-circle-exclamation me-2"></i><%= error_msg %>
+  </div>
+<% } %>
+
+<div class="page-header">
+  <h1 class="page-title">Edit Admin</h1>
+  <p class="page-subtitle">Update administrator account details</p>
+</div>
+
+<div class="edu-card" style="max-width:720px;">
+  <div class="edu-card-header">
+    <!-- Current Admin Info Strip -->
+    <div style="display:flex; align-items:center; gap:14px;">
+      <% if (editAdmin.image && editAdmin.image !== 'default-avatar.png') { %>
+        <img src="/uploads/<%= editAdmin.image %>" style="width:50px;height:50px;border-radius:12px;object-fit:cover;border:2px solid #14b8a6;">
+      <% } else { %>
+        <div style="width:50px;height:50px;border-radius:12px;background:linear-gradient(135deg,#0f766e,#14b8a6);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:1.3rem;">
+          <%= editAdmin.name.charAt(0).toUpperCase() %>
+        </div>
+      <% } %>
+      <div>
+        <p style="font-family:'Poppins',sans-serif;font-size:1rem;font-weight:700;color:#1e293b;margin:0;"><%= editAdmin.name %></p>
+        <p style="font-size:0.8rem;color:#64748b;margin:0;"><%= editAdmin.email %></p>
+      </div>
+    </div>
+    <a href="/view-admin" class="btn-secondary" style="font-size:0.82rem; padding:8px 14px;">
+      <i class="fa fa-arrow-left"></i> Back
+    </a>
+  </div>
+  <div class="edu-card-body">
+    <form action="/edit-admin/<%= editAdmin._id %>" method="POST" enctype="multipart/form-data">
+
+      <div class="form-section">
+        <div class="form-section-title">Personal Information</div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Full Name *</label>
+              <input type="text" class="form-control" name="name" value="<%= editAdmin.name %>" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Email Address *</label>
+              <input type="email" class="form-control" name="email" value="<%= editAdmin.email %>" required>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">Update Security & Photo</div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">New Password <span style="color:#94a3b8; font-size:0.75rem;">(leave blank to keep current)</span></label>
+              <input type="password" class="form-control" name="password" placeholder="Enter new password (min 6 chars)">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Profile Image <span style="color:#94a3b8; font-size:0.75rem;">(leave blank to keep current)</span></label>
+              <input type="file" class="form-control" name="image" accept="image/*">
+              <% if (editAdmin.image && editAdmin.image !== 'default-avatar.png') { %>
+                <p style="font-size:0.75rem; color:#94a3b8; margin-top:4px;">
+                  <i class="fa fa-image me-1"></i>Current: <%= editAdmin.image %>
+                </p>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:12px; margin-top:8px;">
+        <button type="submit" class="btn-save">
+          <i class="fa fa-floppy-disk"></i> Save Changes
+        </button>
+        <a href="/view-admin" class="btn-secondary">
+          <i class="fa fa-xmark"></i> Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

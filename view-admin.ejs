@@ -1,0 +1,113 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar', { activePage: 'view-admin' }) %>
+
+<!-- Flash Messages -->
+<% if (success_msg && success_msg.length > 0) { %>
+  <div class="alert alert-success mb-3">
+    <i class="fa fa-circle-check me-2"></i><%= success_msg %>
+  </div>
+<% } %>
+<% if (error_msg && error_msg.length > 0) { %>
+  <div class="alert alert-danger mb-3">
+    <i class="fa fa-circle-exclamation me-2"></i><%= error_msg %>
+  </div>
+<% } %>
+
+<div class="page-header d-flex justify-content-between align-items-center">
+  <div>
+    <h1 class="page-title">All Admins</h1>
+    <p class="page-subtitle">Showing all <strong><%= admins.length %></strong> registered admin accounts</p>
+  </div>
+  <a href="/add-admin" class="btn-add">
+    <i class="fa fa-plus"></i> Add New Admin
+  </a>
+</div>
+
+<div class="edu-card">
+  <div class="edu-card-header">
+    <div>
+      <p class="edu-card-title">Admin List</p>
+      <p class="edu-card-subtitle">All registered system administrators</p>
+    </div>
+    <span class="badge-info"><%= admins.length %> Total</span>
+  </div>
+  <div class="edu-card-body" style="padding:0;">
+    <div class="table-responsive">
+      <table class="edu-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Admin Info</th>
+            <th>Email</th>
+            <th>Joined Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (admins && admins.length > 0) { %>
+            <% admins.forEach(function(a, i) { %>
+              <tr>
+                <td style="color:#94a3b8; font-weight:700;"><%= String(i+1).padStart(2,'0') %></td>
+                <td>
+                  <div class="user-cell">
+                    <% if (a.image && a.image !== 'default-avatar.png') { %>
+                      <img src="/uploads/<%= a.image %>" alt="" style="border-radius:10px;">
+                    <% } else { %>
+                      <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#0f766e,#14b8a6);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:1rem;">
+                        <%= a.name.charAt(0).toUpperCase() %>
+                      </div>
+                    <% } %>
+                    <div>
+                      <p class="user-cell-name">
+                        <%= a.name %>
+                        <% if (admin && a._id.toString() === admin._id.toString()) { %>
+                          <span class="badge-info" style="font-size:0.65rem; margin-left:4px;">You</span>
+                        <% } %>
+                      </p>
+                      <p class="user-cell-email">Administrator</p>
+                    </div>
+                  </div>
+                </td>
+                <td style="color:#64748b; font-size:0.88rem;"><%= a.email %></td>
+                <td style="color:#94a3b8; font-size:0.82rem;"><%= a.createdAt ? a.createdAt.toDateString() : 'N/A' %></td>
+                <td><span class="badge-active">● Active</span></td>
+                <td>
+                  <div style="display:flex; gap:8px;">
+                    <a href="/edit-admin/<%= a._id %>" class="btn-edit">
+                      <i class="fa fa-pen-to-square"></i> Edit
+                    </a>
+                    <% if (admin && a._id.toString() !== admin._id.toString()) { %>
+                      <form action="/delete-admin/<%= a._id %>" method="POST" style="display:inline;"
+                        onsubmit="return confirm('Delete admin <%= a.name %>? This cannot be undone.')">
+                        <button type="submit" class="btn-delete">
+                          <i class="fa fa-trash"></i> Delete
+                        </button>
+                      </form>
+                    <% } else { %>
+                      <span class="btn-disabled" title="Cannot delete your own account">
+                        <i class="fa fa-trash"></i> Delete
+                      </span>
+                    <% } %>
+                  </div>
+                </td>
+              </tr>
+            <% }) %>
+          <% } else { %>
+            <tr>
+              <td colspan="6" style="text-align:center; padding:60px; color:#94a3b8;">
+                <i class="fa fa-users" style="font-size:3rem; display:block; margin-bottom:16px;"></i>
+                <p style="font-size:1rem; font-weight:600; margin-bottom:8px;">No admins found</p>
+                <a href="/add-admin" class="btn-add" style="display:inline-flex;">
+                  <i class="fa fa-plus"></i> Add First Admin
+                </a>
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

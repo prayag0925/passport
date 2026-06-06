@@ -1,0 +1,118 @@
+<!-- SIDEBAR -->
+<div class="sidebar-wrapper">
+  <div class="sidebar-brand">
+    <div class="sidebar-brand-inner">
+      <div class="sidebar-brand-icon">📚</div>
+      <div>
+        <div class="sidebar-brand-name">
+          EduAdmin
+          <span>Management System</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-menu">
+    <div class="menu-label">Main Menu</div>
+
+    <div class="sidebar-item">
+      <a href="/dashboard" class="sidebar-link <%= typeof activePage !== 'undefined' && activePage === 'dashboard' ? 'active' : '' %>">
+        <i class="fa fa-gauge"></i>
+        Dashboard
+      </a>
+    </div>
+
+    <div class="menu-label" style="margin-top:8px;">Admin Management</div>
+
+    <div class="sidebar-item">
+      <a href="#adminMenu" class="sidebar-link"
+        data-bs-toggle="collapse"
+        aria-expanded="<%= typeof activePage !== 'undefined' && ['view-admin','add-admin','edit-admin'].includes(activePage) ? 'true' : 'false' %>"
+        onclick="this.classList.toggle('active-parent'); document.getElementById('adminMenu').classList.toggle('show'); return false;">
+        <i class="fa fa-users-gear"></i>
+        Manage Admins
+        <i class="fa fa-chevron-right collapse-arrow" style="margin-left:auto;"></i>
+      </a>
+      <div id="adminMenu" class="sidebar-submenu <%= typeof activePage !== 'undefined' && ['view-admin','add-admin','edit-admin'].includes(activePage) ? '' : 'hidden' %>"
+        style="<%= typeof activePage !== 'undefined' && ['view-admin','add-admin','edit-admin'].includes(activePage) ? '' : 'display:none;' %>">
+        <div class="sidebar-item">
+          <a href="/add-admin" class="sidebar-link <%= typeof activePage !== 'undefined' && activePage === 'add-admin' ? 'active' : '' %>">
+            <i class="fa fa-user-plus"></i>
+            Add Admin
+          </a>
+        </div>
+        <div class="sidebar-item">
+          <a href="/view-admin" class="sidebar-link <%= typeof activePage !== 'undefined' && activePage === 'view-admin' ? 'active' : '' %>">
+            <i class="fa fa-list-ul"></i>
+            View All Admins
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-label" style="margin-top:8px;">Account</div>
+
+    <div class="sidebar-item">
+      <a href="/profile" class="sidebar-link <%= typeof activePage !== 'undefined' && activePage === 'profile' ? 'active' : '' %>">
+        <i class="fa fa-circle-user"></i>
+        My Profile
+      </a>
+    </div>
+
+    <div class="sidebar-item">
+      <a href="/logout" class="sidebar-link" style="margin-top:120px;">
+        <i class="fa fa-right-from-bracket"></i>
+        Logout
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- TOPBAR -->
+<div style="flex:1; display:flex; flex-direction:column;">
+<div class="topbar">
+  <div class="topbar-left">
+    <p class="topbar-greeting">Hello, <span><%= admin ? admin.name.split(' ')[0] : 'Admin' %></span> 👋</p>
+    <p class="topbar-subtitle">Welcome to EduAdmin Dashboard</p>
+  </div>
+  <div class="topbar-right">
+    <a href="#" class="topbar-btn">
+      <i class="fa fa-bell"></i>
+      <span class="topbar-badge">3</span>
+    </a>
+    <a href="#" class="topbar-btn">
+      <i class="fa fa-magnifying-glass"></i>
+    </a>
+    <a href="/profile" class="topbar-user">
+      <% if (admin && admin.image && admin.image !== 'default-avatar.png') { %>
+        <img src="/uploads/<%= admin.image %>" class="topbar-avatar" alt="Profile">
+      <% } else { %>
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#0f766e,#14b8a6);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:0.9rem;border:2px solid #14b8a6;">
+          <%= admin ? admin.name.charAt(0).toUpperCase() : 'A' %>
+        </div>
+      <% } %>
+      <div>
+        <p class="topbar-user-name"><%= admin ? admin.name : 'Admin' %></p>
+        <p class="topbar-user-role">Administrator</p>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- MAIN CONTENT WRAPPER -->
+<div class="main-content">
+<script>
+  // Toggle sidebar submenus
+  document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        if (target.style.display === 'none' || target.style.display === '') {
+          target.style.display = 'block';
+        } else {
+          target.style.display = 'none';
+        }
+      }
+    });
+  });
+</script>

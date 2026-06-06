@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login — EduAdmin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f4f8;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .logo-icon {
+      width: 56px;
+      height: 56px;
+      background: #0f766e;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin: 0 auto 12px;
+    }
+
+    .logo h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .logo span {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 0.82rem;
+      color: #64748b;
+      margin-bottom: 24px;
+    }
+
+    .alert {
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .alert-danger {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    .alert-success {
+      background: #f0fdf4;
+      color: #16a34a;
+      border: 1px solid #bbf7d0;
+    }
+
+    label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #374151;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .input-wrap {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .input-wrap i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 11px 12px 11px 36px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-family: 'Poppins', sans-serif;
+      color: #1e293b;
+      background: #f8fafc;
+      transition: border 0.2s;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #0f766e;
+      background: #fff;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      font-size: 0.8rem;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #64748b;
+      cursor: pointer;
+    }
+
+    .forgot {
+      color: #0f766e;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .forgot:hover {
+      text-decoration: underline;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 12px;
+      background: #0f766e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-login:hover {
+      background: #0d5f58;
+    }
+
+    .divider {
+      text-align: center;
+      color: #cbd5e1;
+      font-size: 0.78rem;
+      margin: 18px 0;
+      position: relative;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 42%;
+      height: 1px;
+      background: #e2e8f0;
+    }
+
+    .divider::before {
+      left: 0;
+    }
+
+    .divider::after {
+      right: 0;
+    }
+
+    .register-link {
+      text-align: center;
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+
+    .register-link a {
+      color: #0f766e;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-card">
+
+    <div class="logo">
+      <div class="logo-icon">📚</div>
+      <h2>EduAdmin</h2>
+      <span>Admin Management System</span>
+    </div>
+
+    <h3>Welcome back 👋</h3>
+    <p class="subtitle">Enter your credentials to continue</p>
+
+    <% if (typeof error_msg !=='undefined' && error_msg.length> 0) { %>
+      <div class="alert alert-danger">
+        <i class="fa fa-circle-exclamation"></i>
+        <%= error_msg %>
+      </div>
+      <% } %>
+        <% if (typeof success_msg !=='undefined' && success_msg.length> 0) { %>
+          <div class="alert alert-success">
+            <i class="fa fa-circle-check"></i>
+            <%= success_msg %>
+          </div>
+          <% } %>
+            <% if (typeof error !=='undefined' && error.length> 0) { %>
+              <div class="alert alert-danger">
+                <i class="fa fa-circle-exclamation"></i>
+                <%= error[0] %>
+              </div>
+              <% } %>
+
+                <form action="/login" method="POST">
+
+                  <label>Email Address</label>
+                  <div class="input-wrap">
+                    <i class="fa fa-envelope"></i>
+                    <input type="email" name="email" placeholder="admin@example.com" required>
+                  </div>
+
+                  <label>Password</label>
+                  <div class="input-wrap">
+                    <i class="fa fa-lock"></i>
+                    <input type="password" name="password" placeholder="Enter your password" required>
+                  </div>
+
+                  <div class="row">
+                    <label class="remember">
+                      <input type="checkbox" style="accent-color:#0f766e;"> Remember me
+                    </label>
+                    <a href="#" class="forgot">Forgot password?</a>
+                  </div>
+
+                  <button type="submit" class="btn-login">
+                    <i class="fa fa-arrow-right-to-bracket"></i> Sign In
+                  </button>
+
+                </form>
+
+                <div class="divider">or</div>
+
+                <p class="register-link">
+                  New admin? <a href="/register">Create account</a>
+                </p>
+
+  </div>
+
+</body>
+
+</html>
